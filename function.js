@@ -17,6 +17,7 @@ function possibleMoves(piece) {
             possible[q].row == piece.row + 1
           ) {
             possible.splice(q, 1);
+            console.log('e')
           } else if (
             possible[q].column == piece.column &&
             possible[q].row == piece.row + 2
