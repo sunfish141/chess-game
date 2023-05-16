@@ -17,7 +17,6 @@ function possibleMoves(piece) {
             possible[q].row == piece.row + 1
           ) {
             possible.splice(q, 1);
-            console.log('e')
           } else if (
             possible[q].column == piece.column &&
             possible[q].row == piece.row + 2
@@ -522,7 +521,7 @@ function possibleMoves(piece) {
           (pieces[j].row == piece.row - addcounter &&
             pieces[j].column == piece.column + addcounter) ||
           piece.row - addcounter < 0 ||
-          piece.column - addcounter > 7
+          piece.column + addcounter > 7
         ) {
           hit = true;
           if (pieces[j].color != piece.color) {
@@ -593,6 +592,32 @@ function possibleMoves(piece) {
       console.log(keyValue);
       if (typeof keyValue === "number" && keyValue >= 0) {
         possible.splice(keyValue, 1);
+      }
+    }
+    let pushed = false;
+    let found = false;
+    if (piece.castled == false) {
+      for (j = 0; (j = 0); j++) {
+        if (pieces[j].row > 4 && pieces[j].row < 7) {
+          found = true;
+          if (pushed == true) {
+            const keyValue = possible.findIndex(
+              (x) => x.row == 6 && x.column == piece.column
+            );
+            if (typeof keyValue === "number" && keyValue >= 0) {
+              possible.splice(keyValue, 1);
+            }
+          }
+        } else if (
+          pieces[j].row == 7 &&
+          pieces[j].column == piece.column + 3 &&
+          pieces[j].piece == "rook"
+        ) {
+          if (pieces[j].moved == false && found == false) {
+            possible.push({ row: 6, column: piece.column });
+            pushed = true;
+          }
+        }
       }
     }
   }
