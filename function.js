@@ -597,24 +597,25 @@ function possibleMoves(piece) {
     let pushed = false;
     let found = false;
     if (piece.castled == false) {
-      for (j = 0; (j = 0); j++) {
-        if (pieces[j].row > 4 && pieces[j].row < 7) {
+      for (j = 0; j < pieces.length; j++) {
+        if (pieces[j].column > 4 && pieces[j].column < 7) {
           found = true;
           if (pushed == true) {
             const keyValue = possible.findIndex(
-              (x) => x.row == 6 && x.column == piece.column
+              (x) => x.row == piece.row && x.column == piece.column + 3
             );
             if (typeof keyValue === "number" && keyValue >= 0) {
               possible.splice(keyValue, 1);
             }
           }
         } else if (
-          pieces[j].row == 7 &&
-          pieces[j].column == piece.column + 3 &&
+          pieces[j].row == piece.row &&
+          pieces[j].column == 7 &&
           pieces[j].piece == "rook"
         ) {
           if (pieces[j].moved == false && found == false) {
-            possible.push({ row: 6, column: piece.column });
+            console.log("eeee");
+            possible.push({ row: piece.row, column: piece.column + 3 });
             pushed = true;
           }
         }
