@@ -603,11 +603,10 @@ function possibleMoves(piece) {
           pieces[j].column < 7 &&
           pieces[j].row == piece.row
         ) {
-          console.log("EEEEEEEE");
           found = true;
           if (pushed == true) {
             const keyValue = possible.findIndex(
-              (x) => x.row == piece.row && x.column == piece.column + 3
+              (x) => x.row == piece.row && x.column == piece.column + 2
             );
             if (typeof keyValue === "number" && keyValue >= 0) {
               possible.splice(keyValue, 1);
@@ -623,6 +622,38 @@ function possibleMoves(piece) {
               row: piece.row,
               column: piece.column + 2,
               shortcastled: true,
+            });
+            pushed = true;
+          }
+        }
+      }
+      pushed = false;
+      found = false;
+      for (j = 0; j < pieces.length; j++) {
+        if (
+          pieces[j].column < 4 &&
+          pieces[j].column > 0 &&
+          pieces[j].row == piece.row
+        ) {
+          found = true;
+          if (pushed == true) {
+            const keyValue = possible.findIndex(
+              (x) => x.row == piece.row && x.column == piece.column - 2
+            );
+            if (typeof keyValue === "number" && keyValue >= 0) {
+              possible.splice(keyValue, 1);
+            }
+          }
+        } else if (
+          pieces[j].row == piece.row &&
+          pieces[j].column == 0 &&
+          pieces[j].piece == "rook"
+        ) {
+          if (pieces[j].moved == false && found == false) {
+            possible.push({
+              row: piece.row,
+              column: piece.column - 2,
+              longcastled: true,
             });
             pushed = true;
           }
@@ -709,6 +740,14 @@ function getCursorPosition(c, event) {
                   );
                   console.log(rook);
                   pieces[rook].column = 5;
+                } else if (moves[keyValue].longcastled == true) {
+                  let rook = pieces.findIndex(
+                    (e) =>
+                      e.row == pieces[j].row &&
+                      e.column == 0 &&
+                      e.piece == "rook"
+                  );
+                  pieces[rook].column = 3;
                 }
               }
               pieces[j].column = piecex;
