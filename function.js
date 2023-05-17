@@ -598,7 +598,12 @@ function possibleMoves(piece) {
     let found = false;
     if (piece.castled == false) {
       for (j = 0; j < pieces.length; j++) {
-        if (pieces[j].column > 4 && pieces[j].column < 7) {
+        if (
+          pieces[j].column > 4 &&
+          pieces[j].column < 7 &&
+          pieces[j].row == piece.row
+        ) {
+          console.log("EEEEEEEE");
           found = true;
           if (pushed == true) {
             const keyValue = possible.findIndex(
@@ -614,8 +619,11 @@ function possibleMoves(piece) {
           pieces[j].piece == "rook"
         ) {
           if (pieces[j].moved == false && found == false) {
-            console.log("eeee");
-            possible.push({ row: piece.row, column: piece.column + 3 });
+            possible.push({
+              row: piece.row,
+              column: piece.column + 2,
+              shortcastled: true,
+            });
             pushed = true;
           }
         }
@@ -658,6 +666,7 @@ function getCursorPosition(c, event) {
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
   let clickfound = false;
+  let castled = false;
   let piecex = Math.floor(x / 80);
   let piecey = Math.floor(y / 80);
   let movefound = false;
@@ -683,10 +692,29 @@ function getCursorPosition(c, event) {
           }
           for (j = 0; j < pieces.length; j++) {
             if (pieces[j].selected == true) {
+              let keyValue;
+              if (pieces[j].piece == "king") {
+                pieces[j].castled == true;
+              }
+              if (pieces[j].piece == "king") {
+                keyValue = moves.findIndex(
+                  (x) => x.row == 7 - piecey && x.column == piecex
+                );
+                if (moves[keyValue].shortcastled == true) {
+                  let rook = pieces.findIndex(
+                    (e) =>
+                      e.row == pieces[j].row &&
+                      e.column == 7 &&
+                      e.piece == "rook"
+                  );
+                  console.log(rook);
+                  pieces[rook].column = 5;
+                }
+              }
               pieces[j].column = piecex;
               pieces[j].row = 7 - piecey;
               pieces[j].selected = false;
-              if (pieces[j].piece == "pawn") {
+              if (pieces[j].piece == "pawn" || pieces[j].piece == "rook") {
                 pieces[j].moved = true;
               }
             }
