@@ -749,9 +749,17 @@ function getCursorPosition(c, event) {
                   );
                   pieces[rook].column = 3;
                 }
+                pieces[j].castled = true;
               }
               pieces[j].column = piecex;
               pieces[j].row = 7 - piecey;
+              if (
+                pieces[j].piece == "pawn" &&
+                (pieces[j].row == 7 || pieces[j].row == 0)
+              ) {
+                console.log(pieces[j]);
+                pieces[j].piece = "queen";
+              }
               pieces[j].selected = false;
               if (pieces[j].piece == "pawn" || pieces[j].piece == "rook") {
                 pieces[j].moved = true;

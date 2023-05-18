@@ -13,3 +13,13 @@ body {
 #myCanvas {
   z-index: 2;
 }
+
+#bodydiv {
+  width: 100%;
+}
+
+#canvasdiv {
+  width: 640px;
+  height: 640px;
+  float: left;
+}
