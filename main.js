@@ -258,6 +258,10 @@ function drawPieces() {
     let e = pieces[i].color + pieces[i].piece;
     let x = 10 + pieces[i].column * 80;
     let y = 570 - pieces[i].row * 80;
+    if (currentturn == "Black") {
+      x = 10 - (pieces[i].column - 7) * 80;
+      y = 570 + (pieces[i].row - 7) * 80;
+    }
     let width = 60;
     let length = 60;
     if (pieces[i].piece == "bishop") {
