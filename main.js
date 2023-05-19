@@ -276,6 +276,23 @@ function drawPieces() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (currentturn == "Black") {
+    for (i = 0; i < pieces.length; i++) {
+      if (pieces[i].color == "white") {
+        pieces[i].row += 7 - pieces[i].row;
+      } else if (pieces[i].color == "black") {
+        pieces[i].row = 7 - pieces[i].row;
+      }
+    }
+  } else if (currentturn == "White") {
+    for (i = 0; i < pieces.length; i++) {
+      if (pieces[i].color == "white") {
+        pieces[i].row = 7 - pieces[i].row;
+      } else if (pieces[i].color == "black") {
+        pieces[i].row += 7 - pieces[i].row;
+      }
+    }
+  }
   drawBoard();
   drawPieces();
   if (gameover == false) {
