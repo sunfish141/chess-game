@@ -7,6 +7,7 @@ let lastSelection;
 let currentturn = "White";
 let checked = [];
 let gameover = false;
+let turnchanged = true;
 
 const imageUrls = [
   "img\\whitepawn.png",
@@ -258,10 +259,6 @@ function drawPieces() {
     let e = pieces[i].color + pieces[i].piece;
     let x = 10 + pieces[i].column * 80;
     let y = 570 - pieces[i].row * 80;
-    if (currentturn == "Black") {
-      x = 10 - (pieces[i].column - 7) * 80;
-      y = 570 + (pieces[i].row - 7) * 80;
-    }
     let width = 60;
     let length = 60;
     if (pieces[i].piece == "bishop") {
@@ -274,24 +271,22 @@ function drawPieces() {
   }
 }
 
+function checkTurn(){
+    for (i = 0; i < pieces.length; i++) {
+      if (pieces[i].color == "white") {
+        pieces[i].row = 7 - pieces[i].row;
+      } else if (pieces[i].color == "black") {
+        pieces[i].row = 7 - pieces[i].row;
+      }
+    }
+  console.log(pieces)
+  turnchanged = true;
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (currentturn == "Black") {
-    for (i = 0; i < pieces.length; i++) {
-      if (pieces[i].color == "white") {
-        pieces[i].row += 7 - pieces[i].row;
-      } else if (pieces[i].color == "black") {
-        pieces[i].row = 7 - pieces[i].row;
-      }
-    }
-  } else if (currentturn == "White") {
-    for (i = 0; i < pieces.length; i++) {
-      if (pieces[i].color == "white") {
-        pieces[i].row = 7 - pieces[i].row;
-      } else if (pieces[i].color == "black") {
-        pieces[i].row += 7 - pieces[i].row;
-      }
-    }
+  if (turnchanged == false){
+    checkTurn();
   }
   drawBoard();
   drawPieces();
