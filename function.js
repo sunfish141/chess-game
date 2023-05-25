@@ -53,12 +53,15 @@ function possibleMoves(piece) {
         }
       }
     }
-  }else if (piece.piece == "queen") {
+  } else if (piece.piece == "queen") {
+    //queen
     possible = [];
+    //possible moves array
     let hit = false;
     let addcounter = 1;
-    //ALL OF THE CODE BELOW IS THE IDENTICAL PROGRAMMING FOR A ROOK{
+    //moving up
     while (hit == false) {
+      //for each square going up, check if a piece is there and whether is the piece is same color
       for (j = 0; j < pieces.length; j++) {
         if (
           (pieces[j].column == piece.column &&
@@ -66,22 +69,26 @@ function possibleMoves(piece) {
           piece.row - addcounter > 7
         ) {
           if (pieces[j].color != piece.color) {
+            //push move to moves array is piece is enemy
             possible.push({
               row: piece.row + addcounter,
               column: piece.column,
             });
           }
+          //piece is detected and while loop will end
           hit = true;
         }
       }
       if (hit == true || addcounter > 7) {
         break;
       }
+      //push move to moves array if no piece is detected
       possible.push({ row: piece.row + addcounter, column: piece.column });
       addcounter++;
     }
     hit = false;
     addcounter = 1;
+    //moving down
     while (hit == false) {
       for (j = 0; j < pieces.length; j++) {
         if (

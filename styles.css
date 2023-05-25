@@ -1,25 +1,28 @@
 canvas {
   background: #eee;
   display: block;
-  margin: auto;
+  margin: 50px;
   border: 2px solid black;
 }
 
 body {
   text-align: center;
   user-select: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #myCanvas {
   z-index: 2;
 }
 
-#bodydiv {
-  width: 100%;
+nav ol {
+  height: 200px;
+  width: 100px;
 }
-
-#canvasdiv {
-  width: 640px;
-  height: 640px;
-  float: left;
+nav ol {
+  overflow: hidden;
+  overflow-y: scroll;
 }
