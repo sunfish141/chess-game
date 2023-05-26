@@ -26,11 +26,14 @@ const imageUrls = [
 
 const images = [];
 
-// Load each image and add it to the images array
+//Load images
 imageUrls.forEach((url) => {
   const img = new Image();
   img.src = url;
+  console.log(img.src);
+  console.log(url);
   img.onload = () => {
+    console.log(img.src);
     images.push(img);
   };
 });
@@ -265,27 +268,28 @@ function drawPieces() {
       width = 80;
       x -= 10;
     }
+    let imgValue = images.findIndex((x) => x.src == `img\\${e}.png`);
     const image = new Image();
     image.src = `img\\${e}.png`;
     ctx.drawImage(image, x, y, width, length);
   }
 }
 
-function checkTurn(){
-    for (i = 0; i < pieces.length; i++) {
-      if (pieces[i].color == "white") {
-        pieces[i].row = 7 - pieces[i].row;
-      } else if (pieces[i].color == "black") {
-        pieces[i].row = 7 - pieces[i].row;
-      }
+function checkTurn() {
+  for (i = 0; i < pieces.length; i++) {
+    if (pieces[i].color == "white") {
+      pieces[i].row = 7 - pieces[i].row;
+    } else if (pieces[i].color == "black") {
+      pieces[i].row = 7 - pieces[i].row;
     }
-  console.log(pieces)
+  }
+  console.log(pieces);
   turnchanged = true;
 }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (turnchanged == false){
+  if (turnchanged == false) {
     checkTurn();
   }
   drawBoard();
