@@ -1,6 +1,6 @@
 //Piece movement
 function possibleMoves(piece) {
-  let possible = [];
+  let possible;
   if (piece.piece == "pawn") {
     // POSSIBLE MOVES
     possible = [
@@ -113,6 +113,7 @@ function possibleMoves(piece) {
     }
     hit = false;
     addcounter = 1;
+    //moving right
     while (hit == false) {
       for (j = 0; j < pieces.length; j++) {
         if (
@@ -137,6 +138,7 @@ function possibleMoves(piece) {
     }
     hit = false;
     addcounter = 1;
+    //moving left
     while (hit == false) {
       for (j = 0; j < pieces.length; j++) {
         if (
@@ -159,7 +161,6 @@ function possibleMoves(piece) {
       possible.push({ row: piece.row, column: piece.column - addcounter });
       addcounter++;
     }
-    //}
     hit = false;
     addcounter = 1;
     //diagonally upwards to the right
@@ -277,10 +278,11 @@ function possibleMoves(piece) {
       addcounter++;
     }
   } else if (piece.piece == "rook") {
+    //moving rook
     possible = [];
     let hit = false;
     let addcounter = 1;
-    //ALL OF THE CODE BELOW IS THE IDENTICAL PROGRAMMING FOR A ROOK{
+    //identical code to queen movement sans diagonals
     while (hit == false) {
       for (j = 0; j < pieces.length; j++) {
         if (
