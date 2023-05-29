@@ -9,7 +9,7 @@ let checked = [];
 let gameover = false;
 let boardflip = true;
 let turnchanged = true;
-let currentflip = 'black';
+let currentflip = "black";
 
 const imageUrls = [
   "img\\whitepawn.png",
@@ -240,35 +240,35 @@ function drawBoard() {
         squarewidth,
         squareheight
       );
-      if (currentturn == 'White' || boardflip == false){
-      if (i % 2 == 0) {
-        if (j % 2 == 0) {
-          ctx.fillStyle = "#FFFFFF";
+      if (currentflip == "black") {
+        if (i % 2 == 0) {
+          if (j % 2 == 0) {
+            ctx.fillStyle = "#FFFFFF";
+          } else {
+            ctx.fillStyle = "#89CFF0";
+          }
         } else {
-          ctx.fillStyle = "#89CFF0";
+          if (j % 2 == 1) {
+            ctx.fillStyle = "#FFFFFF";
+          } else {
+            ctx.fillStyle = "#89CFF0";
+          }
         }
-      } else {
-        if (j % 2 == 1) {
-          ctx.fillStyle = "#FFFFFF";
+      } else if (currentflip == "white") {
+        if (i % 2 == 0) {
+          if (j % 2 == 0) {
+            ctx.fillStyle = "#89CFF0";
+          } else {
+            ctx.fillStyle = "#FFFFFF";
+          }
         } else {
-          ctx.fillStyle = "#89CFF0";
+          if (j % 2 == 1) {
+            ctx.fillStyle = "#89CFF0";
+          } else {
+            ctx.fillStyle = "#FFFFFF";
+          }
         }
       }
-    } else if (currentturn == 'Black' && boardflip == true){
-      if (i % 2 == 0) {
-        if (j % 2 == 0) {
-          ctx.fillStyle = "#89CFF0";
-        } else {
-          ctx.fillStyle = "#FFFFFF";
-        }
-      } else {
-        if (j % 2 == 1) {
-          ctx.fillStyle = "#89CFF0";
-        } else {
-          ctx.fillStyle = "#FFFFFF";
-        }
-      }
-    }
       ctx.fill();
       ctx.closePath();
     }
@@ -302,11 +302,10 @@ function checkTurn() {
       pieces[i].row = 7 - pieces[i].row;
     }
   }
-  if (currentflip == 'black'){
-    currentflip = 'white';
-  }
-  else if (currentflip == 'white'){
-    currentflip = 'black';
+  if (currentflip == "black") {
+    currentflip = "white";
+  } else if (currentflip == "white") {
+    currentflip = "black";
   }
   console.log(pieces);
   turnchanged = true;
@@ -332,13 +331,13 @@ c.addEventListener("mousedown", function (e) {
   }
 });
 
-const flip = document.getElementById('flipbtn');
-flip.addEventListener("click",function (){
-  if (boardflip == true){
-  boardflip = false;
-  flip.innerHTML="Enable board flipping"
-  } else if (boardflip == false){
+const flip = document.getElementById("flipbtn");
+flip.addEventListener("click", function () {
+  if (boardflip == true) {
+    boardflip = false;
+    flip.innerHTML = "Enable board flipping";
+  } else if (boardflip == false) {
     boardflip = true;
-    flip.innerHTML="Disable board flipping"
+    flip.innerHTML = "Disable board flipping";
   }
-})
+});

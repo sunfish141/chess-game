@@ -1,7 +1,7 @@
 //Piece movement
 function possibleMoves(piece) {
   let possible;
-  if ((piece.piece == "pawn" && boardflip == true) || (piece.piece == 'pawn' && piece.color == 'white' && boardflip == false)) {
+  if (piece.piece == "pawn" && currentflip != piece.color) {
     // POSSIBLE MOVES
     possible = [
       { row: piece.row + 1, column: piece.column },
@@ -53,7 +53,7 @@ function possibleMoves(piece) {
         }
       }
     }
-  } else if (piece.piece == "pawn" && piece.color == "black" && boardflip == false) {
+  } else if (piece.piece == "pawn" && currentflip == piece.color) {
     // POSSIBLE MOVES
     possible = [
       { row: piece.row - 1, column: piece.column },
@@ -105,7 +105,7 @@ function possibleMoves(piece) {
         }
       }
     }
-   } else if (piece.piece == "queen") {
+  } else if (piece.piece == "queen") {
     //queen
     possible = [];
     //possible moves array
@@ -600,7 +600,10 @@ function possibleMoves(piece) {
     for (j = 0; j < pieces.length; j++) {
       //check if a king move has the same position as an existing piece
       const keyValue = possible.findIndex(
-        (x) => x.row == pieces[j].row && x.column == pieces[j].column && x.color == pieces[j].color
+        (x) =>
+          x.row == pieces[j].row &&
+          x.column == pieces[j].column &&
+          x.color == pieces[j].color
       );
       console.log(keyValue);
       if (typeof keyValue === "number" && keyValue >= 0) {
@@ -791,9 +794,6 @@ function getCursorPosition(c, event) {
       clickfound = true;
       pieces[k].selected = false;
     }
-  }
-  if (lastSelection != undefined) {
-    pieces[lastSelection].selected = false;
   }
   if (clickfound == false) {
     for (i = 0; i < pieces.length; i++) {
