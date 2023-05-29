@@ -1,7 +1,7 @@
 //Piece movement
 function possibleMoves(piece) {
   let possible;
-  if (piece.piece == "pawn") {
+  if ((piece.piece == "pawn" && boardflip == true) || (piece.piece == 'pawn' && piece.color == 'white' && boardflip == false)) {
     // POSSIBLE MOVES
     possible = [
       { row: piece.row + 1, column: piece.column },
@@ -53,7 +53,59 @@ function possibleMoves(piece) {
         }
       }
     }
-  } else if (piece.piece == "queen") {
+  } else if (piece.piece == "pawn" && piece.color == "black" && boardflip == false) {
+    // POSSIBLE MOVES
+    possible = [
+      { row: piece.row - 1, column: piece.column },
+      { row: piece.row - 2, column: piece.column },
+      //MAKE IT SO THE FOLLOWING MOVES ARE ONLY POSSIBLE IF ENEMY PIECES ARE DETECTED
+    ];
+    for (i = 0; i < pieces.length; i++) {
+      //MOVE ONE SQUARE
+      if (pieces[i].column == piece.column && pieces[i].row == piece.row - 1) {
+        for (q = 0; q < possible.length; q++) {
+          if (
+            possible[q].column == piece.column &&
+            possible[q].row == piece.row - 1
+          ) {
+            possible.splice(q, 1);
+          } else if (
+            possible[q].column == piece.column &&
+            possible[q].row == piece.row - 2
+          ) {
+            possible.splice(q, 1);
+          }
+        } //MOVE TWO SQUARES
+      } else if (
+        (pieces[i].column == piece.column && pieces[i].row == piece.row - 2) ||
+        piece.moved == true
+      ) {
+        for (q = 0; q < possible.length; q++) {
+          if (
+            possible[q].column == piece.column &&
+            possible[q].row == piece.row - 2
+          ) {
+            possible.splice(q, 1);
+          }
+        }
+      }
+      if (
+        pieces[i].column == piece.column - 1 &&
+        pieces[i].row == piece.row - 1
+      ) {
+        if (pieces[i].color != piece.color) {
+          possible.push({ row: piece.row - 1, column: piece.column - 1 });
+        }
+      } else if (
+        pieces[i].column == piece.column + 1 &&
+        pieces[i].row == piece.row - 1
+      ) {
+        if (pieces[i].color != piece.color) {
+          possible.push({ row: piece.row - 1, column: piece.column + 1 });
+        }
+      }
+    }
+   } else if (piece.piece == "queen") {
     //queen
     possible = [];
     //possible moves array
@@ -69,7 +121,7 @@ function possibleMoves(piece) {
           piece.row - addcounter > 7
         ) {
           if (pieces[j].color != piece.color) {
-            //push move to moves array is piece is enemy
+            //push move to moves array if piece is enemy
             possible.push({
               row: piece.row + addcounter,
               column: piece.column,
@@ -385,6 +437,7 @@ function possibleMoves(piece) {
     possible = [];
     let hit = false;
     let addcounter = 1;
+    //queen movement without rows and columns
     while (hit == false) {
       for (j = 0; j < pieces.length; j++) {
         if (
@@ -514,18 +567,20 @@ function possibleMoves(piece) {
 
     while (cycle < possible.length && !clear) {
       for (let j = 0; j < pieces.length; j++) {
+        //check if a move is occupied by a friendly piece
         if (
           possible[cycle].row == pieces[j].row &&
           possible[cycle].column == pieces[j].column &&
           piece.color == pieces[j].color
         ) {
+          //remove the move from array
           possible.splice(cycle, 1);
+          //subtract 1 from cycle variable to compensate for removed array value
           cycle--;
           break;
-          //issue
         }
       }
-
+      //move to next value
       cycle++;
       if (cycle == possible.length) {
         clear = true;
@@ -543,8 +598,9 @@ function possibleMoves(piece) {
       { row: piece.row + 1, column: piece.column + 1 },
     ];
     for (j = 0; j < pieces.length; j++) {
+      //check if a king move has the same position as an existing piece
       const keyValue = possible.findIndex(
-        (x) => x.row == pieces[j].row && x.column == pieces[j].column
+        (x) => x.row == pieces[j].row && x.column == pieces[j].column && x.color == pieces[j].color
       );
       console.log(keyValue);
       if (typeof keyValue === "number" && keyValue >= 0) {

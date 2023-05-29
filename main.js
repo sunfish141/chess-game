@@ -7,7 +7,9 @@ let lastSelection;
 let currentturn = "White";
 let checked = [];
 let gameover = false;
+let boardflip = true;
 let turnchanged = true;
+let currentflip = 'black';
 
 const imageUrls = [
   "img\\whitepawn.png",
@@ -238,6 +240,7 @@ function drawBoard() {
         squarewidth,
         squareheight
       );
+      if (currentturn == 'White' || boardflip == false){
       if (i % 2 == 0) {
         if (j % 2 == 0) {
           ctx.fillStyle = "#FFFFFF";
@@ -251,6 +254,21 @@ function drawBoard() {
           ctx.fillStyle = "#89CFF0";
         }
       }
+    } else if (currentturn == 'Black' && boardflip == true){
+      if (i % 2 == 0) {
+        if (j % 2 == 0) {
+          ctx.fillStyle = "#89CFF0";
+        } else {
+          ctx.fillStyle = "#FFFFFF";
+        }
+      } else {
+        if (j % 2 == 1) {
+          ctx.fillStyle = "#89CFF0";
+        } else {
+          ctx.fillStyle = "#FFFFFF";
+        }
+      }
+    }
       ctx.fill();
       ctx.closePath();
     }
@@ -268,6 +286,7 @@ function drawPieces() {
       width = 80;
       x -= 10;
     }
+    //fix
     let imgValue = images.findIndex((x) => x.src == `img\\${e}.png`);
     const image = new Image();
     image.src = `img\\${e}.png`;
@@ -283,13 +302,19 @@ function checkTurn() {
       pieces[i].row = 7 - pieces[i].row;
     }
   }
+  if (currentflip == 'black'){
+    currentflip = 'white';
+  }
+  else if (currentflip == 'white'){
+    currentflip = 'black';
+  }
   console.log(pieces);
   turnchanged = true;
 }
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (turnchanged == false) {
+  if (turnchanged == false && boardflip == true) {
     checkTurn();
   }
   drawBoard();
@@ -306,3 +331,14 @@ c.addEventListener("mousedown", function (e) {
     getCursorPosition(c, e);
   }
 });
+
+const flip = document.getElementById('flipbtn');
+flip.addEventListener("click",function (){
+  if (boardflip == true){
+  boardflip = false;
+  flip.innerHTML="Enable board flipping"
+  } else if (boardflip == false){
+    boardflip = true;
+    flip.innerHTML="Disable board flipping"
+  }
+})

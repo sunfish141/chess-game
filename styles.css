@@ -26,3 +26,10 @@ nav ol {
   overflow: hidden;
   overflow-y: scroll;
 }
+
+button {
+  background-color: rgb(54, 49, 49);
+  color: white;
+  width: 200px;
+  height: 50px;
+}
