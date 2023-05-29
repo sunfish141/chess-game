@@ -431,9 +431,7 @@ function possibleMoves(piece) {
       possible.push({ row: piece.row, column: piece.column - addcounter });
       addcounter++;
     }
-  }
-  //}
-  else if (piece.piece == "bishop") {
+  } else if (piece.piece == "bishop") {
     possible = [];
     let hit = false;
     let addcounter = 1;
@@ -720,6 +718,7 @@ function getCursorPosition(c, event) {
     if (pieces[k].selected == true) {
       if (pieces[k].color == currentturn.toLowerCase()) {
         let moves = possibleMoves(pieces[k]);
+        console.log(pieces[k]);
         if (moves.some((e) => e.row == 7 - piecey && e.column == piecex)) {
           for (z = 0; z < pieces.length; z++) {
             if (
@@ -766,6 +765,7 @@ function getCursorPosition(c, event) {
                 }
                 pieces[j].castled = true;
               }
+
               pieces[j].column = piecex;
               pieces[j].row = 7 - piecey;
               if (
@@ -792,8 +792,12 @@ function getCursorPosition(c, event) {
         }
       }
       clickfound = true;
+      console.log(pieces[k]);
       pieces[k].selected = false;
     }
+  }
+  if (typeof lastSelection == "number") {
+    pieces[lastSelection].selected = false;
   }
   if (clickfound == false) {
     for (i = 0; i < pieces.length; i++) {
