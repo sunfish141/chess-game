@@ -286,8 +286,6 @@ function drawPieces() {
       width = 80;
       x -= 10;
     }
-    //fix
-    let imgValue = images.findIndex((x) => x.src == `img\\${e}.png`);
     const image = new Image();
     image.src = `img\\${e}.png`;
     ctx.drawImage(image, x, y, width, length);
