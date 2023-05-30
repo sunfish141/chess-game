@@ -1,6 +1,6 @@
 //Piece movement
 function possibleMoves(piece) {
-  let possible;
+  let possible = [];
   if (piece.piece == "pawn" && currentflip != piece.color) {
     // POSSIBLE MOVES
     possible = [
@@ -137,6 +137,7 @@ function possibleMoves(piece) {
       //push move to moves array if no piece is detected
       possible.push({ row: piece.row + addcounter, column: piece.column });
       addcounter++;
+      console.log(addcounter);
     }
     hit = false;
     addcounter = 1;
@@ -348,7 +349,6 @@ function possibleMoves(piece) {
               column: piece.column,
             });
           }
-          console.log("qweqwe");
           hit = true;
         }
       }
@@ -377,7 +377,6 @@ function possibleMoves(piece) {
         }
       }
       if (hit == true || addcounter > 7) {
-        console.log("eeee");
         break;
       }
       possible.push({ row: piece.row - addcounter, column: piece.column });
@@ -603,7 +602,6 @@ function possibleMoves(piece) {
           x.column == pieces[j].column &&
           x.color == pieces[j].color
       );
-      console.log(keyValue);
       if (typeof keyValue === "number" && keyValue >= 0) {
         possible.splice(keyValue, 1);
       }
@@ -675,33 +673,38 @@ function possibleMoves(piece) {
       }
     }
   }
-  //clear unwanted values
+  //clear unwanted values (for ease of using console log)
   clear = false;
-  while (clear == false) {
-    for (q = 0; q < possible.length; q++) {
-      if (
-        possible[q].column < 0 ||
-        possible[q].column > 7 ||
-        possible[q].row < 0 ||
-        possible[q].row > 7
-      ) {
-        possible.splice(q, 1);
-      } else {
-        clear = true;
-      }
-      for (j = 0; j < possible.length; j++) {
+  let length = 0;
+    while (clear == false) {
+      for (q = 0; q < possible.length; q++) {
         if (
-          possible[j].column < 0 ||
-          possible[j].column > 7 ||
-          possible[j].row < 0 ||
-          possible[j].row > 7
+          possible[q].column < 0 ||
+          possible[q].column > 7 ||
+          possible[q].row < 0 ||
+          possible[q].row > 7
         ) {
-          clear = false;
+          possible.splice(q, 1);
+        } else {
+          clear = true;
+        }
+        for (j = 0; j < possible.length; j++) {
+          if (
+            possible[j].column < 0 ||
+            possible[j].column > 7 ||
+            possible[j].row < 0 ||
+            possible[j].row > 7
+          ) {
+            clear = false;
+          }
         }
       }
+      length++;
+      if (length >= possible.length){
+        break;
+      }
     }
-  }
-  console.log(possible);
+  console.log(possible)
   return possible;
 }
 
@@ -718,7 +721,6 @@ function getCursorPosition(c, event) {
     if (pieces[k].selected == true) {
       if (pieces[k].color == currentturn.toLowerCase()) {
         let moves = possibleMoves(pieces[k]);
-        console.log(pieces[k]);
         if (moves.some((e) => e.row == 7 - piecey && e.column == piecex)) {
           for (z = 0; z < pieces.length; z++) {
             if (
@@ -752,7 +754,6 @@ function getCursorPosition(c, event) {
                       e.column == 7 &&
                       e.piece == "rook"
                   );
-                  console.log(rook);
                   pieces[rook].column = 5;
                 } else if (moves[keyValue].longcastled == true) {
                   let rook = pieces.findIndex(
@@ -772,7 +773,6 @@ function getCursorPosition(c, event) {
                 pieces[j].piece == "pawn" &&
                 (pieces[j].row == 7 || pieces[j].row == 0)
               ) {
-                console.log(pieces[j]);
                 pieces[j].piece = "queen";
               }
               pieces[j].selected = false;
@@ -792,7 +792,6 @@ function getCursorPosition(c, event) {
         }
       }
       clickfound = true;
-      console.log(pieces[k]);
       pieces[k].selected = false;
     }
   }
@@ -803,7 +802,6 @@ function getCursorPosition(c, event) {
     for (i = 0; i < pieces.length; i++) {
       if (pieces[i].column == piecex && pieces[i].row == 7 - piecey) {
         pieces[i].selected = true;
-        console.log(pieces[i]);
         lastSelection = i;
       }
     }
