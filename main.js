@@ -325,7 +325,7 @@ draw();
 const c = document.querySelector("canvas");
 c.addEventListener("mousedown", function (e) {
   if (gameover == false) {
-    getCursorPosition(c, e);
+    makeMove(c, e);
   }
 });
 

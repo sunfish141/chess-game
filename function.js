@@ -676,40 +676,40 @@ function possibleMoves(piece) {
   //clear unwanted values (for ease of using console log)
   clear = false;
   let length = 0;
-    while (clear == false) {
-      for (q = 0; q < possible.length; q++) {
-        if (
-          possible[q].column < 0 ||
-          possible[q].column > 7 ||
-          possible[q].row < 0 ||
-          possible[q].row > 7
-        ) {
-          possible.splice(q, 1);
-        } else {
-          clear = true;
-        }
-        for (j = 0; j < possible.length; j++) {
-          if (
-            possible[j].column < 0 ||
-            possible[j].column > 7 ||
-            possible[j].row < 0 ||
-            possible[j].row > 7
-          ) {
-            clear = false;
-          }
-        }
+  while (clear == false) {
+    for (q = 0; q < possible.length; q++) {
+      if (
+        possible[q].column < 0 ||
+        possible[q].column > 7 ||
+        possible[q].row < 0 ||
+        possible[q].row > 7
+      ) {
+        possible.splice(q, 1);
+      } else {
+        clear = true;
       }
-      length++;
-      if (length >= possible.length){
-        break;
+      for (j = 0; j < possible.length; j++) {
+        if (
+          possible[j].column < 0 ||
+          possible[j].column > 7 ||
+          possible[j].row < 0 ||
+          possible[j].row > 7
+        ) {
+          clear = false;
+        }
       }
     }
-  console.log(possible)
+    length++;
+    if (length >= possible.length) {
+      break;
+    }
+  }
+  console.log(possible);
   return possible;
 }
 
 //Click function
-function getCursorPosition(c, event) {
+function makeMove(c, event) {
   const rect = c.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
