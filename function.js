@@ -602,7 +602,7 @@ function possibleMoves(piece) {
           x.column == pieces[j].column &&
           x.color == pieces[j].color
       );
-      if (typeof keyValue === "number" && keyValue >= 0) {
+      if (typeof keyValue == "number" && keyValue >= 0) {
         possible.splice(keyValue, 1);
       }
     }
