@@ -5,7 +5,6 @@ let squarewidth = canvas.width / 8;
 let squareheight = canvas.height / 8;
 let lastSelection;
 let currentturn = "White";
-let checked = [];
 let gameover = false;
 let boardflip = true;
 let turnchanged = true;
