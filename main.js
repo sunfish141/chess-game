@@ -31,10 +31,7 @@ const images = [];
 imageUrls.forEach((url) => {
   const img = new Image();
   img.src = url;
-  console.log(img.src);
-  console.log(url);
   img.onload = () => {
-    console.log(img.src);
     images.push(img);
   };
 });
@@ -304,7 +301,6 @@ function checkTurn() {
   } else if (currentflip == "white") {
     currentflip = "black";
   }
-  console.log(pieces);
   turnchanged = true;
 }
 

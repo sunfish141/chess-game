@@ -137,7 +137,6 @@ function possibleMoves(piece) {
       //push move to moves array if no piece is detected
       possible.push({ row: piece.row + addcounter, column: piece.column });
       addcounter++;
-      console.log(addcounter);
     }
     hit = false;
     addcounter = 1;
@@ -704,7 +703,6 @@ function possibleMoves(piece) {
       break;
     }
   }
-  console.log(possible);
   return possible;
 }
 
