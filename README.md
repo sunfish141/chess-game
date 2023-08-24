@@ -1,10 +1,10 @@
 # CHESSS-GAME
-#### Video Demo:  <URL HERE>
+#### Video Demo:  <https://www.youtube.com/watch?v=xJflVeIHeBA>
 #### Description: The game presented is a simple game that allows two players to play chess. It allows the board to flip after every move, which can be disabled. It accounts for all possible moves in a position, including castling but not en passant, and it cannot recognize stalemates or draws. It recognizes which side has won by determining whether a side still has its king (A king in checkmate is guaranteed to lose it on the next turn anyway). It does not use any libraries.
 
 #### The HTML file, index.html, simply creates the canvas which the game will be played on, as well as a button to control board flipping and text to display the winner once the game is won.
 
-#### THe CSS file, styles.css,
+#### THe CSS file, styles.css, organizes the canvas, the button, and the text for winning, as well as setting some background colours and borders.
 
 #### The first JS file, main.js, first defines the variables that will be used to create the game as well as variables that will be used to decide whose turn it is, and control board flipping, if enabled. It then loads the images of each of the pieces, to prevent them from reloading in every game loop. It then creates an array containing all of the pieces, where each piece is an object with a set column and row, colour, whether the player has currently selected it, and for pawns, rooks, and kings, whether it has moved (To decide whether the piece can still castle or move two squares). The next function, the drawBoard() function, creates the board with for loops to create a checkered pattern. It accounts for whether or not the board is being flipped, and uses that to determine which squares should be coloured. The drawPieces function simply creates the pieces at their position on the board, using their column and row properties. The checkTurn function changes the row positions of every piece when a move is made if board flipping is on. This simulates the feeling that the board is actually flipping. The draw function clears the canvas after every frame, and calls the functions that draw the board and pieces. It also controls when the game ends. The next function detects when a click is made on the board, and it uses that to make a move in the functions.js file. The last function simply detects clicks on the button to change whether or not board flipping occurs.
 
